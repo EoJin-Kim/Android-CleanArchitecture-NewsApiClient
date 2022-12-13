@@ -5,7 +5,7 @@ import com.ej.android_cleanarchitecture_newsapiclient.data.util.Resource
 import com.ej.android_cleanarchitecture_newsapiclient.domain.repository.NewsRepository
 
 class GetNewsHeadlinesUseCase(private val newsRepository: NewsRepository) {
-    suspend fun excute(): Resource<APIResponse>{
-        return newsRepository.getNewsHeadlines()
+    suspend fun excute(country:String, page:Int): Resource<APIResponse>{
+        return newsRepository.getNewsHeadlines(country,page)
     }
 }
