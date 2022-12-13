@@ -11,6 +11,6 @@ class NewsViewModelFactory(
     private val getNewsHeadlinesUseCase: GetNewsHeadlinesUseCase
 ):ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return super.create(modelClass)
+        return NewsViewModel(app,getNewsHeadlinesUseCase) as T
     }
 }
