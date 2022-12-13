@@ -61,7 +61,7 @@ class NewsFragment : Fragment() {
                     }
                 }
                 is Resource.Loading ->{
-
+                    showProgressBar()
                 }
             }
         }
