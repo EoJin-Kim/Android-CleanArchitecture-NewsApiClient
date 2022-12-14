@@ -1,12 +1,14 @@
 package com.ej.android_cleanarchitecture_newsapiclient
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ej.android_cleanarchitecture_newsapiclient.data.util.Resource
@@ -44,6 +46,16 @@ class NewsFragment : Fragment() {
         fragmentNewsBinding = FragmentNewsBinding.bind(view)
         viewModel = (activity as MainActivity).viewModel
         newsAdapter = (activity as MainActivity).newsAdapter
+        newsAdapter.setOnItemClickListener {
+            Log.d("MYTAG","click")
+            val bundle = Bundle().apply {
+                putSerializable("selected_article",it)
+            }
+            findNavController().navigate(
+                R.id.action_newsFragment_to_infoFragment,
+                bundle
+            )
+        }
 
         initRecyclerView()
         viewNewsList()
@@ -98,7 +110,7 @@ class NewsFragment : Fragment() {
 
     private fun hideProgressBar(){
         isLoading = false
-        fragmentNewsBinding.progressBar.visibility = View.GONE
+        fragmentNewsBinding.progressBar.visibility = View.INVISIBLE
     }
 
     private val onScrollListener = object : RecyclerView.OnScrollListener(){

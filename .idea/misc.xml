@@ -3,12 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/hfhsh/AndroidStudioProjects/Android-CleanArchitecture-NewsApiClient/app/src/main/res/layout/fragment_info.xml" value="0.5536458333333333" />
-        <entry key="..\:/Users/hfhsh/AndroidStudioProjects/Android-CleanArchitecture-NewsApiClient/app/src/main/res/layout/fragment_news.xml" value="0.5536458333333333" />
+        <entry key="..\:/and/AndroidCleanArchitectureNewsApiClient/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/and/AndroidCleanArchitectureNewsApiClient/app/src/main/res/layout/fragment_info.xml" value="0.375" />
+        <entry key="..\:/and/AndroidCleanArchitectureNewsApiClient/app/src/main/res/layout/fragment_news.xml" value="0.33" />
+        <entry key="..\:/and/AndroidCleanArchitectureNewsApiClient/app/src/main/res/layout/fragment_saved.xml" value="0.22604166666666667" />
+        <entry key="..\:/and/AndroidCleanArchitectureNewsApiClient/app/src/main/res/layout/news_list_item.xml" value="0.33" />
+        <entry key="..\:/and/AndroidCleanArchitectureNewsApiClient/app/src/main/res/menu/bottom_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
