@@ -44,23 +44,21 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentNewsBinding = FragmentNewsBinding.bind(view)
-        viewModel = (activity as MainActivity).viewModel
-        newsAdapter = (activity as MainActivity).newsAdapter
+        viewModel= (activity as MainActivity).viewModel
+        newsAdapter= (activity as MainActivity).newsAdapter
         newsAdapter.setOnItemClickListener {
-            Log.d("MYTAG","click")
             val bundle = Bundle().apply {
                 putSerializable("selected_article",it)
             }
-            findNavController().navigate(
+            val navController =findNavController()
+            navController.navigate(
                 R.id.action_newsFragment_to_infoFragment,
                 bundle
             )
         }
-
         initRecyclerView()
         viewNewsList()
         setSearchView()
-
     }
 
     private fun viewNewsList() {
@@ -96,7 +94,6 @@ class NewsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        newsAdapter = NewsAdapter()
         fragmentNewsBinding.rvNews.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)

@@ -1,6 +1,7 @@
 package com.ej.android_cleanarchitecture_newsapiclient.presentation.di
 
 import com.ej.android_cleanarchitecture_newsapiclient.data.repository.NewsRepositoryImpl
+import com.ej.android_cleanarchitecture_newsapiclient.data.repository.datasource.NewsLocalDataSource
 import com.ej.android_cleanarchitecture_newsapiclient.data.repository.datasource.NewsRemoteDataSource
 import com.ej.android_cleanarchitecture_newsapiclient.domain.repository.NewsRepository
 import dagger.Module
@@ -17,8 +18,9 @@ class RepositoryModule {
     @Singleton
     @Provides
     fun provideNewRepository(
-        newsRemoteDataSource: NewsRemoteDataSource
+        newsRemoteDataSource: NewsRemoteDataSource,
+        newsLocalDataSource: NewsLocalDataSource
     ):NewsRepository{
-        return NewsRepositoryImpl(newsRemoteDataSource)
+        return NewsRepositoryImpl(newsRemoteDataSource,newsLocalDataSource)
     }
 }
