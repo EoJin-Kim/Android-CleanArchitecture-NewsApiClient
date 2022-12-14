@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AbsListView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,9 @@ import com.ej.android_cleanarchitecture_newsapiclient.data.util.Resource
 import com.ej.android_cleanarchitecture_newsapiclient.databinding.FragmentNewsBinding
 import com.ej.android_cleanarchitecture_newsapiclient.presentation.adapter.NewsAdapter
 import com.ej.android_cleanarchitecture_newsapiclient.presentation.viewmodel.NewsViewModel
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class NewsFragment : Fragment() {
@@ -28,10 +32,6 @@ class NewsFragment : Fragment() {
     private var isLoading = false
     private var isLastPage = false
     private var pages = 0
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +59,7 @@ class NewsFragment : Fragment() {
 
         initRecyclerView()
         viewNewsList()
+        setSearchView()
 
     }
 
@@ -136,6 +137,62 @@ class NewsFragment : Fragment() {
                 isScrolling=false
             }
 
+        }
+    }
+
+    //search
+    private fun setSearchView() {
+        fragmentNewsBinding.svNews.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.searchNews("us",query.toString(),page)
+                viewSearchedNews()
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                MainScope().launch {
+                    delay(2000)
+                    viewModel.searchNews("us",newText.toString(),page)
+                    viewSearchedNews()
+                }
+                return false
+            }
+        })
+        fragmentNewsBinding.svNews.setOnCloseListener{
+            initRecyclerView()
+            viewNewsList()
+            false
+        }
+    }
+
+    fun viewSearchedNews(){
+        viewModel.searchedNews.observe(viewLifecycleOwner){response ->
+            when(response){
+                is Resource.Success ->{
+                    hideProgressBar()
+                    response.data?.let {
+                        newsAdapter.differ.submitList(it.articles.toList())
+                        if(it.totalResults%20==0){
+                            // 페이지당 20개가 default
+                            pages = it.totalResults/20
+                        }
+                        else{
+                            pages = it.totalResults/20+1
+                        }
+                        isLastPage = page==pages
+
+                    }
+                }
+                is Resource.Error ->{
+                    hideProgressBar()
+                    response.message?.let {
+                        Toast.makeText(activity,"An error occurred : $it",Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resource.Loading ->{
+                    showProgressBar()
+                }
+            }
         }
     }
 }
