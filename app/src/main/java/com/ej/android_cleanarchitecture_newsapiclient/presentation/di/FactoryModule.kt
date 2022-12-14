@@ -1,10 +1,7 @@
 package com.ej.android_cleanarchitecture_newsapiclient.presentation.di
 
 import android.app.Application
-import com.ej.android_cleanarchitecture_newsapiclient.domain.usecase.GetNewsHeadlinesUseCase
-import com.ej.android_cleanarchitecture_newsapiclient.domain.usecase.GetSavedNewsUseCase
-import com.ej.android_cleanarchitecture_newsapiclient.domain.usecase.GetSearchedNewsUseCase
-import com.ej.android_cleanarchitecture_newsapiclient.domain.usecase.SaveNewsUseCase
+import com.ej.android_cleanarchitecture_newsapiclient.domain.usecase.*
 import com.ej.android_cleanarchitecture_newsapiclient.presentation.viewmodel.NewsViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -25,6 +22,7 @@ class FactoryModule {
         getSearchedNewsUseCase: GetSearchedNewsUseCase,
         saveNewsUseCase: SaveNewsUseCase,
         getSavedNewsUseCase: GetSavedNewsUseCase,
+        deleteSavedNewsUseCase: DeleteSavedNewsUseCase,
     ):NewsViewModelFactory{
         return NewsViewModelFactory(
             application,
@@ -32,6 +30,7 @@ class FactoryModule {
             getSearchedNewsUseCase,
             saveNewsUseCase,
             getSavedNewsUseCase,
+            deleteSavedNewsUseCase,
         )
     }
 }
